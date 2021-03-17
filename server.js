@@ -55,8 +55,7 @@ server.get('/findById/:id',(req,res) =>{
   .then(result =>{res.send(result)})
   .catch(error => console.log(error));
 })
-
-
+console.log(bille);
 // server.get('/deleteOne',(req,res) =>{
 //   Blog.deleteOne({title:{titleTest2}})
 //   .then(result =>{res.send(result)})
