@@ -18,9 +18,9 @@ const mongoUrl="mongodb+srv://bilel:bilelzahi@cluster0.s9tdp.mongodb.net/testDB?
 })).catch(error =>console.log(error));
 
 
-// server.get('/', function (req, res) {
-//   res.send('Hello World')
-// })
+server.get('/', function (req, res) {
+  res.send('Hello World')
+})
 
 server.post('/add',(req,res) => {
 
@@ -35,18 +35,18 @@ server.post('/add',(req,res) => {
 
   
 })
-// server.get('/getAll',(req,res) =>{
-//   Blog.find()
-//    .then(result =>{res.send(result)})
-//     .catch(error =>console.log(error));
+server.get('/getAll',(req,res) =>{
+  Blog.find()
+   .then(result =>{res.send(result)})
+    .catch(error =>console.log(error));
 
-// })
-// server.get('/findById',(req,res) =>{
-//   Blog.findById("6050c0e7adaa76070077ae07")
-//   .then(result =>{res.send(result)})
-//   .catch(error =>console.log(error));
+})
+server.get('/findById',(req,res) =>{
+  Blog.findById("6050c0e7adaa76070077ae07")
+  .then(result =>{res.send(result)})
+  .catch(error =>console.log(error));
    
-// })
+})
 
 
 server.get('/findById/:id',(req,res) =>{
@@ -56,11 +56,21 @@ server.get('/findById/:id',(req,res) =>{
   .catch(error => console.log(error));
 })
 console.log(bille);
-// server.get('/deleteOne',(req,res) =>{
-//   Blog.deleteOne({title:{titleTest2}})
-//   .then(result =>{res.send(result)})
-//   .catch(error => console.log(error));
-// })
+
+
+server.delete('/findByIdAndDelete/:id',(req,res) =>{
+  _id=req.params.id
+  Blog.findByIdAndDelete(_id)
+  .then(() => {res.send('deleted')})
+  .catch(error => console.log(error));
+})
+
+server.put('/findOneAndUpdate',(req,res)=>{
+ 
+    Blog.findByIdAndUpdate({_id:'6051d4540ed4d320e80aae0e'},{title:'letoile'},{new:true})
+    .then(result => {res.send(result)})
+    .catch(error => console.log(error));
+  })
    
 
 
@@ -70,15 +80,15 @@ console.log(bille);
 
 
 
-    // const ages=age.forEach((x)=>{
-    //     console.log(x);
-    // });
-    // console.log(ages);    
+    const ages=age.forEach((x)=>{
+        console.log(x);
+    });
+    console.log(ages);    
 
-    // setTimeout(() => {
-    //     console.log("bilel");
+    setTimeout(() => {
+        console.log("bilel");
 
-    // }, 3000);
+    }, 3000);
 
 
     
