@@ -2,20 +2,29 @@ const express = require('express')
 const server = express()
 // const{id,name}=require('./test.js')
 const mongoose = require('mongoose');
-// const { title } = require('node:process');
+
 const Blog=require('./models/todo')
-// const { Router } = require('express');
+const user=require('./models/user')
+const bodyParser = require('body-parser')
+// const user =require('./routes/user')
+// const Blog=require('./routes/todo')
 const mongoUrl="mongodb+srv://bilel:bilelzahi@cluster0.s9tdp.mongodb.net/testDB?retryWrites=true&w=majority";
 
+// server.use(bodyParser.json())
+var jsonParser=bodyParser.json()
 
- mongoose.connect(mongoUrl, {
+
+
+ mongoose.connect(mongoUrl,{
   useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
+    useFindAndModify: false,
   useCreateIndex: true
-}).then(result =>server.listen(3000,()=>{
+}).then(result =>server.listen(3000,async()=>{
     console.log('server is http://localhost/3000');
 })).catch(error =>console.log(error));
+
+
+
 
 
 server.get('/', function (req, res) {
@@ -55,7 +64,7 @@ server.get('/findById/:id',(req,res) =>{
   .then(result =>{res.send(result)})
   .catch(error => console.log(error));
 })
-console.log(bille);
+
 
 
 server.delete('/findByIdAndDelete/:id',(req,res) =>{
@@ -71,34 +80,70 @@ server.put('/findOneAndUpdate',(req,res)=>{
     .then(result => {res.send(result)})
     .catch(error => console.log(error));
   })
+
    
+// server.use('./user',user)
+// use js
 
-
+// server.route("/user/todo")
+// .get((req,res) =>{})
+// .post((req,res) =>{});
 
 // })
+// kdidmet l user :
+server.post('/addNewUser',jsonParser,(req,res) => {
+
+  user.create(req.body)
+   .then(result =>{res.send(result)})
+   .catch(error =>console.log(error));
+ 
+ 
+ })
 
 
+ server.put('/findAllUser',(req,res)=>{
+ 
+  user.find()
+  .then(result => {res.send(result)})
+  .catch(error => console.log(error));
+})
+
+ 
+ server.delete('/deleteUser/:id', (req,res)=>{
+   _id=req.params.id
+ user.findByIdAndDelete(_id)
+ .then(() => {res.send('deleted')})
+ .catch(error => console.log(error));
+ })
+
+ server.put('/findOneAndUpdateUser',(req,res)=>{
+ 
+  user.findByIdAndUpdate({_id:'6053604b4ec4252034cae6bb'},{email:'test1@test1.com'},{new:true})
+  .then(result => {res.send(result)})
+  .catch(error => console.log(error));
+})
 
 
-    const ages=age.forEach((x)=>{
-        console.log(x);
-    });
-    console.log(ages);    
+    // const ages=age.forEach((x)=>{
+    //     console.log(x);
+    // });
+    // console.log(ages);    
 
-    setTimeout(() => {
-        console.log("bilel");
+    // setTimeout(() => {
+    //     console.log("bilel");
 
-    }, 3000);
+    // }, 3000);
 
 
     
-//     const url = "mongodb://localhost:3000/myDb"
+    const url = "mongodb://localhost:3000/myDb"
 
-// mongoose.connect(url, function(err, db) {
-//   if (err) throw err;
-//   console.log("Database created!");
-//   db.close();
-// });
+mongoose.connect(url, function(err, db) {
+  if (err) throw err;
+  console.log("Database created!");
+  db.close();
+});
+
 
 
 
@@ -109,5 +154,5 @@ server.put('/findOneAndUpdate',(req,res)=>{
 // })
  
 // app.listen(3000,()=>{
-    // console.log('server is http://localhost/3000');
+//     console.log('server is http://localhost/3000');
 // })
