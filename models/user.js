@@ -13,9 +13,11 @@ const userSchema = new Schema({
   
     email: String,
     password: String,
-    
+   
+  todos:[{ type: Schema.Types.ObjectId, ref:'Blog'}],
     
   },{timestamps:true});
+
   const user = mongoose.model('user',userSchema);
   module.exports = user;
 //   module.exports=router;
