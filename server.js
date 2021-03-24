@@ -5,13 +5,16 @@ const bodyParser = require('body-parser');
 const todoApi=require('./routes/todoApi');
 const userApi=require('./routes/userApi');
 const sendEmailApi=require('./routes/sendEmailApi');
+const uploadApi = require('./routes/upload')
+// 
 
 
 
 
-
-
- server.use(bodyParser.json())
+server.use(bodyParser.json())
+server.use('/upload' ,uploadApi)
+// server.use('/api/v1/uploads', express.static(path.join(__dirname, '/uploads')));
+ 
 server.use('/email',sendEmailApi)
  server.use('/user',userApi);
 server.use('/todo',todoApi);
